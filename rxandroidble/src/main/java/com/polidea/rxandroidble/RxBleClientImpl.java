@@ -149,7 +149,7 @@ class RxBleClientImpl extends RxBleClient {
     private RxBleScanResult convertToPublicScanResult(RxBleInternalScanResult scanResult) {
         final BluetoothDevice bluetoothDevice = scanResult.getBluetoothDevice();
         final RxBleDevice bleDevice = getBleDevice(bluetoothDevice.getAddress());
-        return new RxBleScanResult(bleDevice, scanResult.getRssi(), scanResult.getScanRecord());
+        return new RxBleScanResult(bleDevice, scanResult.getRssi(), scanResult.getScanRecord(), scanResult.getAdvertiseFlags());
     }
 
     private Observable<RxBleScanResult> createScanOperation(@Nullable UUID[] filterServiceUUIDs) {

@@ -1,5 +1,6 @@
 package com.polidea.rxandroidble.sample.example1_scanning;
 
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +89,12 @@ class ScanResultsAdapter extends RecyclerView.Adapter<ScanResultsAdapter.ViewHol
         final RxBleScanResult rxBleScanResult = data.get(position);
         final RxBleDevice bleDevice = rxBleScanResult.getBleDevice();
         holder.line1.setText(String.format("%s (%s)", bleDevice.getMacAddress(), bleDevice.getName()));
-        holder.line2.setText(String.format("RSSI: %d", rxBleScanResult.getRssi()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.line2.setText(String.format("RSSI: %d | Flags: %d", rxBleScanResult.getRssi(), rxBleScanResult.getAdvertiseFlags()));
+        } else {
+            holder.line2.setText(String.format("RSSI: %d", rxBleScanResult.getRssi()));
+        }
     }
 
     @Override

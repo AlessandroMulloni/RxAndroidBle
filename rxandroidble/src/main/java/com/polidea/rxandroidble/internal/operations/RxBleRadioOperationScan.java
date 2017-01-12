@@ -65,7 +65,11 @@ public class RxBleRadioOperationScan extends RxBleRadioOperation<RxBleInternalSc
                     ScanRecord scanRecord = scanResult.getScanRecord();
                     if (scanRecord != null && scanRecord.getBytes() != null) {
                         if (!hasDefinedFilter() || hasDefinedFilter() && containsDesiredServiceIds(scanRecord.getBytes())) {
-                            onNext(new RxBleInternalScanResult(scanResult.getDevice(), scanResult.getRssi(), scanRecord.getBytes()));
+                            onNext(new RxBleInternalScanResult(
+                                    scanResult.getDevice(),
+                                    scanResult.getRssi(),
+                                    scanRecord.getBytes(),
+                                    scanRecord.getAdvertiseFlags()));
                         }
                     }
                 }
